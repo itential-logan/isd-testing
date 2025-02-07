@@ -17,7 +17,7 @@
       "_id": "67a6327468d2775f2a08ccca",
       "created": "2022-10-31T20:43:50.925Z",
       "createdBy": "admin@pronghorn",
-      "lastUpdated": "2025-02-07T16:23:48.766Z",
+      "lastUpdated": "2025-02-07T18:33:50.907Z",
       "lastUpdatedBy": "admin@pronghorn",
       "name": "Start Prebuilt Promotion with Form",
       "type": "manual",
@@ -32,8 +32,8 @@
           "reDiscoverPrebuilt": false,
           "forExistingProjects": {
             "mrType": "major",
-            "targetBranch": "master",
-            "commitMessage": "test"
+            "targetBranch": "test",
+            "commitMessage": "test-5"
           },
           "versionControlService": "github",
           "projectName": "isd-testing",
