@@ -1,0 +1,410 @@
+{
+  "created": "2022-06-02T15:19:37.085Z",
+  "createdVersion": "5.40.5-2021.1.72.0",
+  "created_by": {
+    "provenance": "local_aaa",
+    "username": "admin@pronghorn",
+    "firstname": "admin",
+    "inactive": true
+  },
+  "font_size": 12,
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "org": {
+        "title": "org",
+        "type": "string"
+      },
+      "adapter_id": {
+        "type": [
+          "array",
+          "boolean",
+          "null",
+          "number",
+          "object",
+          "string"
+        ]
+      },
+      "repoName": {
+        "title": "repo",
+        "type": "string"
+      }
+    },
+    "required": [
+      "org",
+      "adapter_id",
+      "repoName"
+    ]
+  },
+  "lastUpdatedVersion": "4.15.0-2023.1.290",
+  "last_updated": "2025-02-07T16:18:59.928Z",
+  "last_updated_by": {
+    "provenance": "Local AAA",
+    "username": "admin@pronghorn",
+    "firstname": "admin",
+    "inactive": false
+  },
+  "name": "Prebuilt Promotion Github Check OrgRepo",
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "org": {
+        "title": "org",
+        "type": "string"
+      },
+      "adapter_id": {
+        "type": [
+          "array",
+          "boolean",
+          "null",
+          "number",
+          "object",
+          "string"
+        ]
+      },
+      "repoName": {
+        "title": "repo",
+        "type": "string"
+      },
+      "_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$"
+      },
+      "initiator": {
+        "type": "string"
+      },
+      "repo": {
+        "type": "boolean"
+      },
+      "error": {
+        "type": [
+          "array",
+          "boolean",
+          "null",
+          "number",
+          "object",
+          "string"
+        ]
+      },
+      "failed": {
+        "type": "boolean"
+      }
+    }
+  },
+  "tasks": {
+    "1134": {
+      "name": "newVariable",
+      "canvasName": "newVariable",
+      "summary": "Create a Job Variable",
+      "description": "Create a new Job variable by Job ID and assign it a value.",
+      "location": "Application",
+      "locationType": null,
+      "app": "WorkFlowEngine",
+      "type": "operation",
+      "displayName": "WorkFlowEngine",
+      "variables": {
+        "incoming": {
+          "name": "repo",
+          "value": true
+        },
+        "outgoing": {
+          "value": null
+        }
+      },
+      "deprecated": false,
+      "groups": [],
+      "x": 1.0274509803921568,
+      "y": 0.6009673518742442
+    },
+    "workflow_start": {
+      "name": "workflow_start",
+      "groups": [],
+      "x": 0.06823529411764706,
+      "y": 0.4546553808948005
+    },
+    "workflow_end": {
+      "name": "workflow_end",
+      "groups": [],
+      "x": 1.1827450980392158,
+      "y": 0.35308343409915355
+    },
+    "7fa8": {
+      "name": "getOrgsOrg",
+      "canvasName": "getOrgsOrg",
+      "summary": "Get an Organization.",
+      "description": "Get an Organization.",
+      "location": "Adapter",
+      "locationType": "GitHub",
+      "app": "GitHub",
+      "type": "automatic",
+      "displayName": "GitHub",
+      "variables": {
+        "incoming": {
+          "org": "$var.job.org",
+          "adapter_id": "$var.job.adapter_id"
+        },
+        "outgoing": {
+          "result": null
+        },
+        "error": "$var.job.error",
+        "decorators": []
+      },
+      "deprecated": false,
+      "groups": [],
+      "actor": "Pronghorn",
+      "x": 0.5176470588235295,
+      "y": 0.4607013301088271,
+      "scheduled": false
+    },
+    "de12": {
+      "name": "evaluation",
+      "canvasName": "evaluation",
+      "summary": "Run Evaluation Task",
+      "description": "Run an evaluation",
+      "location": "Application",
+      "locationType": null,
+      "app": "WorkFlowEngine",
+      "type": "operation",
+      "displayName": "WorkFlowEngine",
+      "variables": {
+        "incoming": {
+          "all_true_flag": false,
+          "evaluation_groups": [
+            {
+              "all_true_flag": false,
+              "evaluations": [
+                {
+                  "query": "response.message",
+                  "operand_1": {
+                    "variable": "error",
+                    "task": "786b"
+                  },
+                  "operator": "==",
+                  "operand_2": {
+                    "variable": "Not Found",
+                    "task": "static"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "outgoing": {
+          "return_value": null
+        }
+      },
+      "deprecated": false,
+      "groups": [],
+      "x": 0.96,
+      "y": 0.4607013301088271
+    },
+    "daea": {
+      "name": "ViewData",
+      "canvasName": "ViewData",
+      "summary": "Organization not found",
+      "description": "Displays a message and runtime data to an operator. This can be used to request a decision, or used for acknowledgement only.",
+      "location": "Application",
+      "app": "WorkFlowEngine",
+      "displayName": "Tools",
+      "type": "manual",
+      "variables": {
+        "incoming": {
+          "header": "Error",
+          "message": "",
+          "body": "Organization Not Found. Try again?",
+          "variables": {},
+          "btn_success": "Try Again",
+          "btn_failure": "End"
+        },
+        "outgoing": {},
+        "error": ""
+      },
+      "view": "/workflow_engine/task/ViewData",
+      "deprecated": false,
+      "groups": [],
+      "x": 0.7968627450980392,
+      "y": 0.30713422007255137,
+      "scheduled": false
+    },
+    "fc71": {
+      "name": "newVariable",
+      "canvasName": "newVariable",
+      "summary": "Create a Job Variable",
+      "description": "Create a new Job variable by Job ID and assign it a value.",
+      "location": "Application",
+      "locationType": null,
+      "app": "WorkFlowEngine",
+      "type": "operation",
+      "displayName": "WorkFlowEngine",
+      "variables": {
+        "incoming": {
+          "name": "failed",
+          "value": true
+        },
+        "outgoing": {
+          "value": null
+        }
+      },
+      "deprecated": false,
+      "groups": [],
+      "x": 1.0392156862745099,
+      "y": 0.31076178960096734
+    },
+    "57f6": {
+      "name": "newVariable",
+      "canvasName": "newVariable",
+      "summary": "Create a Job Variable",
+      "description": "Create a new Job variable by Job ID and assign it a value.",
+      "location": "Application",
+      "locationType": null,
+      "app": "WorkFlowEngine",
+      "type": "operation",
+      "displayName": "WorkFlowEngine",
+      "variables": {
+        "incoming": {
+          "name": "repo",
+          "value": false
+        },
+        "outgoing": {
+          "value": null
+        }
+      },
+      "deprecated": false,
+      "groups": [],
+      "x": 0.19215686274509805,
+      "y": 0.4619105199516324
+    },
+    "8e9a": {
+      "name": "newVariable",
+      "canvasName": "newVariable",
+      "summary": "Create a Job Variable",
+      "description": "Create a new Job variable by Job ID and assign it a value.",
+      "location": "Application",
+      "locationType": null,
+      "app": "WorkFlowEngine",
+      "type": "operation",
+      "displayName": "WorkFlowEngine",
+      "variables": {
+        "incoming": {
+          "name": "failed",
+          "value": false
+        },
+        "outgoing": {
+          "value": null
+        }
+      },
+      "deprecated": false,
+      "groups": [],
+      "x": 0.3466666666666667,
+      "y": 0.45828295042321643
+    },
+    "786b": {
+      "name": "getReposOwnerRepo",
+      "canvasName": "getReposOwnerRepo",
+      "summary": "Get repository.",
+      "description": "Get repository.",
+      "location": "Adapter",
+      "locationType": "GitHub",
+      "app": "GitHub",
+      "type": "automatic",
+      "displayName": "GitHub",
+      "variables": {
+        "incoming": {
+          "owner": "$var.job.org",
+          "repo": "$var.job.repoName",
+          "adapter_id": "$var.job.adapter_id"
+        },
+        "outgoing": {
+          "result": null
+        },
+        "error": "",
+        "decorators": []
+      },
+      "deprecated": false,
+      "groups": [],
+      "actor": "Pronghorn",
+      "x": 0.807843137254902,
+      "y": 0.6009673518742442,
+      "scheduled": false
+    }
+  },
+  "transitions": {
+    "1134": {
+      "workflow_end": {
+        "type": "standard",
+        "state": "success"
+      }
+    },
+    "workflow_start": {
+      "57f6": {
+        "type": "standard",
+        "state": "success"
+      }
+    },
+    "workflow_end": {},
+    "7fa8": {
+      "daea": {
+        "type": "standard",
+        "state": "error"
+      },
+      "786b": {
+        "type": "standard",
+        "state": "success"
+      }
+    },
+    "2a69": {},
+    "de12": {
+      "workflow_end": {
+        "type": "standard",
+        "state": "success"
+      },
+      "fc71": {
+        "type": "standard",
+        "state": "failure"
+      }
+    },
+    "daea": {
+      "7fa8": {
+        "type": "revert",
+        "state": "success"
+      },
+      "fc71": {
+        "type": "standard",
+        "state": "failure"
+      }
+    },
+    "fc71": {
+      "workflow_end": {
+        "type": "standard",
+        "state": "success"
+      }
+    },
+    "57f6": {
+      "8e9a": {
+        "type": "standard",
+        "state": "success"
+      }
+    },
+    "8e9a": {
+      "7fa8": {
+        "type": "standard",
+        "state": "success"
+      }
+    },
+    "786b": {
+      "1134": {
+        "type": "standard",
+        "state": "success"
+      },
+      "de12": {
+        "type": "standard",
+        "state": "error"
+      }
+    }
+  },
+  "type": "automation",
+  "canvasVersion": 1,
+  "tags": [],
+  "groups": [],
+  "migrationVersion": 2
+}

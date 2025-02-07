@@ -1,0 +1,49 @@
+{
+  "_id": "63603386158e87012ccf106f",
+  "name": "Prebuilt Promotion",
+  "description": "",
+  "componentName": "Prebuilt Promotion",
+  "componentType": "workflows",
+  "gbac": {
+    "write": [],
+    "read": []
+  },
+  "created": "2022-10-31T20:43:50.782Z",
+  "createdBy": "admin@pronghorn",
+  "lastUpdated": "2025-02-07T16:19:00.258Z",
+  "lastUpdatedBy": "admin@pronghorn",
+  "triggers": [
+    {
+      "_id": "67a6327468d2775f2a08ccca",
+      "created": "2022-10-31T20:43:50.925Z",
+      "createdBy": "admin@pronghorn",
+      "lastUpdated": "2025-02-07T16:23:48.766Z",
+      "lastUpdatedBy": "admin@pronghorn",
+      "name": "Start Prebuilt Promotion with Form",
+      "type": "manual",
+      "enabled": true,
+      "actionType": "automations",
+      "actionId": "63603386158e87012ccf106f",
+      "formId": "Prebuilt Promotion Form",
+      "formData": {
+        "checkInPrebuilt": {
+          "makeProjectPrivateGithubOnly": false,
+          "addRepositoryDependencyFiles": true,
+          "reDiscoverPrebuilt": false,
+          "forExistingProjects": {
+            "mrType": "major",
+            "targetBranch": "master",
+            "commitMessage": "test"
+          },
+          "versionControlService": "github",
+          "projectName": "isd-testing",
+          "prebuilt": "@itentialopensource/prebuilt-promotion",
+          "groupPath": "itential-logan"
+        }
+      },
+      "formSchemaHash": "aa637c2e577de554136f51a8bf2bb312a624de5928544dfdf13a3d0d34412ba6",
+      "description": "",
+      "migrationVersion": 2
+    }
+  ]
+}
